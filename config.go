@@ -1,9 +1,11 @@
 package config
 
 import (
+	"os"
+
+	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 	"gopkg.in/yaml.v3"
-	"os"
 )
 
 func Load[T any](configFile string, defaultConfig ...T) T {
@@ -12,8 +14,9 @@ func Load[T any](configFile string, defaultConfig ...T) T {
 		config = defaultConfig[0]
 	}
 
-	loadConfigFile(&config, configFile)
-	loadConfigEnv(&config)
+	_ = godotenv.Load(".env")
+	_ = loadConfigFile(&config, configFile)
+	_ = loadConfigEnv(&config)
 
 	return config
 }
