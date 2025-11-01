@@ -14,7 +14,7 @@ func Load[T any](configFile string, defaultConfig ...T) T {
 		config = defaultConfig[0]
 	}
 
-	_ = godotenv.Load(".env")
+	_ = godotenv.Load(".env.local", ".env")
 	_ = loadConfigFile(&config, configFile)
 	_ = loadConfigEnv(&config)
 
